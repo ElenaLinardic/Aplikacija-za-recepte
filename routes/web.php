@@ -18,7 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/recipes', 'RecipeController@index');
+Route::get('/recipes/create', 'RecipeController@create');
+Route::post('/recipes', 'RecipeController@store');
 Route::get('/recipes/{id}', 'RecipeController@show');
+Route::delete('/recipes/{id}', 'RecipeController@destroy');
 
 Route::get('/about', function () {
     return view('about');
@@ -27,3 +30,7 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
