@@ -17,23 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/recipes', function () {
-    $recipes = [
-        ['name' => 'palačinke', 'type' => 'deserti'],
-        ['name' => 'pizza sa 4 vrste sira', 'type' => 'pizze'],
-        ['name' => 'juha od šparoga', 'type' => 'juhe']
-    ];
-
-    return view('recipes', [
-        'recipes' => $recipes,
-        'name' => request('name'),
-        'age' => request('age')
-    ]);
-});
-
-Route::get('/recipes/{id}', function ($id) {
-    return view('details', ['id' => $id]);
-});
+Route::get('/recipes', 'RecipeController@index');
+Route::get('/recipes/{id}', 'RecipeController@show');
 
 Route::get('/about', function () {
     return view('about');
