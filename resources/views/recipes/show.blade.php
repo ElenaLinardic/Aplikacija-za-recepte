@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="wrapper recipe-details">
@@ -11,11 +11,11 @@
         @endforeach
     </ul>
     <p class="ingredients">Priprema: {{ $recipe->description }}</p>
-    <form action="/recipes/{{ $recipe->id }}" method="POST">
+    <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST">
         @csrf
         @method('DELETE')
         <button>Izbriši</button>
     </form>
 </div>
-<a href="/recipes"><- Povratak na recepte</a>
-@endsection>
+<a href="/recipes" class="back"><- Povratak na recepte</a>
+@endsection

@@ -20,7 +20,7 @@
             Aplikacija za recepte
         </div>
         <p class="mssg">{{ session('mssg') }}</p>
-        <a href="/recipes/create">Dodaj novi recept</a>
+        <a href="{{ route('recipes.create') }}">Dodaj novi recept</a>
     </div>
 </div>
 @endsection

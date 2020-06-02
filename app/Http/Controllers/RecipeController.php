@@ -10,15 +10,13 @@ class RecipeController extends Controller
     public function index() {
         $recipes = Recipe::latest()->get();
 
-        return view('recipes.index', [
-            'recipes' => $recipes
-        ]);
+        return view('recipes.index', compact('recipes'));
     }
 
     public function show($id) {
         $recipe = Recipe::findOrFail($id);
 
-        return view('recipes.show', ['recipe' => $recipe]);
+        return view('recipes.show', compact('recipe'));
     }
 
     public function create() {
@@ -26,14 +24,14 @@ class RecipeController extends Controller
     }
 
     public function store() {
-        $recipe = new Recipe();
+        $data = request()->validate([
+            'name' => 'required|min:5',
+            'type' => 'required',
+            'ingredients' => 'required',
+            'description' => 'required'
+        ]);
 
-        $recipe->name = request('name');
-        $recipe->type = request('type');
-        $recipe->ingredients = request('ingredients');
-        $recipe->description = request('description');
-
-        $recipe->save();
+        Recipe::create($data);
 
         return redirect('/')->with('mssg', 'Recept je spremljen!');
     }

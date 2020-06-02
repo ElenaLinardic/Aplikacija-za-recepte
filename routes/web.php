@@ -17,11 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/recipes', 'RecipeController@index');
-Route::get('/recipes/create', 'RecipeController@create');
-Route::post('/recipes', 'RecipeController@store');
-Route::get('/recipes/{id}', 'RecipeController@show');
-Route::delete('/recipes/{id}', 'RecipeController@destroy');
+Route::get('/recipes', 'RecipeController@index')->name('recipes.index');
+Route::get('/recipes/create', 'RecipeController@create')->name('recipes.create')->middleware('auth');
+Route::post('/recipes', 'RecipeController@store')->name('recipes.store')->middleware('auth');
+Route::get('/recipes/{id}', 'RecipeController@show')->name('recipes.show');
+Route::delete('/recipes/{id}', 'RecipeController@destroy')->name('recipes.destroy')->middleware('auth');
 
 Route::get('/about', function () {
     return view('about');

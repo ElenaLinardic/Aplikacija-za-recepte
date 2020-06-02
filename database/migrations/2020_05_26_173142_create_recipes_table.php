@@ -19,6 +19,7 @@ class CreateRecipesTable extends Migration
             $table->string('type');
             $table->json('ingredients');
             $table->text('description');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
