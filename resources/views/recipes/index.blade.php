@@ -2,13 +2,15 @@
 
 @section('content')
 <div class="wrapper recipe-index">
-   <h1>Recepti</h1>
+    @include('recipes.search')
+	@if( ! isset($result))
     @foreach($recipes as $recipe)
     <div class="recipe-item">
-        <img src="/img/recipe.png" alt="recipe image">
-        <h4><a href="/recipes/{{ $recipe->id }}">{{ $recipe->name }}</a></h4>
+        <img src="{{ asset('storage/' . $recipe->image) }}" alt="recipe image">
+        <h4><a href="/recipes/{{ $recipe->id }}">{{ $recipe->name }}<small> by {{ $recipe->user->name }}</small></a></h4>
     </div>
     @endforeach
+    @endif
 </div>
 @endsection
 

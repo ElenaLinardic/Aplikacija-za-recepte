@@ -20,7 +20,10 @@
             Aplikacija za recepte
         </div>
         <p class="mssg">{{ session('mssg') }}</p>
-        <a href="{{ route('recipes.create') }}">Dodaj novi recept</a>
+        <div class=links>
+            <a href="{{ route('recipes.index') }}">Pretraži recepte</a>
+            <a href="{{ route('recipes.create') }}">Dodaj novi recept</a>
+        </div>
     </div>
 </div>
 @endsection
