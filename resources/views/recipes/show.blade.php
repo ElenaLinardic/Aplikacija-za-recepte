@@ -40,12 +40,18 @@
     @else
     <hr>
     @if(auth()->user()->favorites()->where('recipe_id', '=', $recipe->id)->exists())
-    <h4>Srce</h4>
+    <form action="{{ route('favorites.destroy', $recipe->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button><i class="fa fa-heart" aria-hidden="true"></i></button>
+    </form>
+    <br>
     @else
     <form action="{{ route('favorites.store', $recipe->id) }}" method="POST">
         @csrf
-        <button>Dodaj u favorite</button>
+        <button>Dodaj u favorite</i></button>
     </form>
+    <br>
     @endif
     <br>
     <h4>Komentiraj...</h4>
@@ -66,7 +72,7 @@
                 <option value=5>5</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Dodaj komentar</button>
+        <button type="submit">Dodaj komentar</button>
     </form>
     @endif
     @endauth
@@ -95,9 +101,6 @@
                         <label for="date" class="col-form-label">Odredi datum:</label>
                         <input type="date" class="form-control" id="date" name='date'>
                     </div>
-                    @error('date')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Odaberi sastojke koje treba nabaviti:</label>
                         <br>
@@ -105,9 +108,6 @@
                             <input type="checkbox" id="ingredients[]" name="ingredients[]" value="{{ $ingredient }}">
                             <label for="ingredients[]">{{ $ingredient }}</label><br>
                         @endforeach
-                        @error('ingredients[]')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Spremi</button>
                 </form>

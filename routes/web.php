@@ -27,9 +27,10 @@ Route::delete('/recipes/{recipe}', 'RecipeController@destroy')->name('recipes.de
 
 Route::get('/my-recipes', 'RecipeController@userRecipes')->name('recipes.userRecipes')->middleware('auth');
 
-Route::post('/reviews/{recipe}', 'ReviewController@store')->name('reviews.store');
-Route::post('/favorites/{recipe}', 'FavoriteController@store')->name('favorites.store');
-Route::post('/plans/{recipe}', 'PlanController@store')->name('plan.store');
+Route::post('/reviews/{recipe}', 'ReviewController@store')->name('reviews.store')->middleware('auth');
+Route::post('/favorites/{recipe}', 'FavoriteController@store')->name('favorites.store')->middleware('auth');
+Route::delete('/favorites/{recipe}', 'FavoriteController@destroy')->name('favorites.destroy')->middleware('auth');
+Route::post('/plans/{recipe}', 'PlanController@store')->name('plan.store')->middleware('auth');
 
 Route::any('search', 'SearchController@index')->name('search');
 

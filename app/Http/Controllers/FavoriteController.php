@@ -16,4 +16,12 @@ class FavoriteController extends Controller
 
         return redirect('/recipes/' . $recipe_id);
     }
+
+    public function destroy($recipe_id) {
+        $user_id = auth()->user()->id;
+        $favorite = Favorite::where(['recipe_id' => $recipe_id, 'user_id' => $user_id])->limit(1);
+        $favorite->delete();
+
+        return redirect('/recipes/' . $recipe_id);
+    }
 }
