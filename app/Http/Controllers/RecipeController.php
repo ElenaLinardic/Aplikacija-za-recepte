@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Recipe;
 use App\Category;
 use Intervention\Image\Facades\Image;
+use Auth;
 
 class RecipeController extends Controller
 {
@@ -26,8 +27,7 @@ class RecipeController extends Controller
 
         $this->storeImage($recipe);
 
-        return redirect('/recipes/' . $recipe->id);
-        // return redirect('/')->with('mssg', 'Recept je spremljen!');
+        return redirect('/recipes/' . $recipe->id)->with('mssg', 'Recept je spremljen!');
     }
 
     public function show(Recipe $recipe) {
@@ -78,4 +78,12 @@ class RecipeController extends Controller
             $image->save();
         }
     }
+
+    public function userRecipes() {
+        $user = Auth::user();
+        $recipes = $user->recipes()->get();
+        $favRecipes = $user->favorites()->get();
+        return view('recipes.userRecipes', compact('recipes', 'favRecipes'));
+    }
+
 }

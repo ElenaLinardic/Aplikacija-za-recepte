@@ -8,14 +8,12 @@ use App\Favorite;
 
 class FavoriteController extends Controller
 {
-    public function store(Recipe $recipe) {
-        $favorite = new Favorite();
+    public function store($recipe_id) {
+        $user_id = auth()->user()->id;
+        if(!Favorite::where(['recipe_id' => $recipe_id, 'user_id' => $user_id])->exists()) {
+            Favorite::create(['recipe_id' => $recipe_id, 'user_id' => $user_id]);
+        }
 
-        $data['user_id'] = auth()->user()->id;
-        $data['recipe_id'] = $recipe->id;
-
-        $favorite->create($data);
-
-        return redirect('/recipes/' . $recipe->id);
+        return redirect('/recipes/' . $recipe_id);
     }
 }

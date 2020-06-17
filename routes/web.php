@@ -21,12 +21,15 @@ Route::get('/recipes', 'RecipeController@index')->name('recipes.index');
 Route::get('/recipes/create', 'RecipeController@create')->name('recipes.create')->middleware('auth');
 Route::post('/recipes', 'RecipeController@store')->name('recipes.store')->middleware('auth');
 Route::get('/recipes/{recipe}', 'RecipeController@show')->name('recipes.show');
-Route::get('/recipes/{recipe}/edit', 'RecipeController@edit')->name('recipes.edit');
-Route::patch('/recipes/{recipe}', 'RecipeController@update')->name('recipes.update');
+Route::get('/recipes/{recipe}/edit', 'RecipeController@edit')->name('recipes.edit')->middleware('auth');
+Route::patch('/recipes/{recipe}', 'RecipeController@update')->name('recipes.update')->middleware('auth');
 Route::delete('/recipes/{recipe}', 'RecipeController@destroy')->name('recipes.destroy')->middleware('auth');
 
-Route::post('/recipes/{recipe}', 'ReviewController@store')->name('reviews.store');
+Route::get('/my-recipes', 'RecipeController@userRecipes')->name('recipes.userRecipes')->middleware('auth');
+
+Route::post('/reviews/{recipe}', 'ReviewController@store')->name('reviews.store');
 Route::post('/favorites/{recipe}', 'FavoriteController@store')->name('favorites.store');
+Route::post('/plans/{recipe}', 'PlanController@store')->name('plan.store');
 
 Route::any('search', 'SearchController@index')->name('search');
 

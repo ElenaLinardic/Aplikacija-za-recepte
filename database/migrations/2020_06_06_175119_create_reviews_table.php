@@ -20,6 +20,11 @@ class CreateReviewsTable extends Migration
             $table->text('comment');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('recipes')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

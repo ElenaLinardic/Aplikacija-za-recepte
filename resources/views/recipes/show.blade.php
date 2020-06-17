@@ -38,11 +38,16 @@
         <button>Izbriši</button>
     </form>
     @else
+    <hr>
+    @if(auth()->user()->favorites()->where('recipe_id', '=', $recipe->id)->exists())
+    <h4>Srce</h4>
+    @else
     <form action="{{ route('favorites.store', $recipe->id) }}" method="POST">
         @csrf
         <button>Dodaj u favorite</button>
     </form>
-    <hr>
+    @endif
+    <br>
     <h4>Komentiraj...</h4>
     <form action="{{ route('reviews.store', $recipe->id) }}" method="POST">
         @csrf
@@ -74,6 +79,40 @@
         @endforeach
     </ul>
     @endif
+    <button class="btn btn-primary" data-toggle="modal" data-target="#planModal">Planiraj recept</button>
 </div>
 <a href="/recipes" class="back"><- Povratak na recepte</a>
+<div class="modal" id="planModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Planiraj recept</h2>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('plan.store', $recipe->id) }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="date" class="col-form-label">Odredi datum:</label>
+                        <input type="date" class="form-control" id="date" name='date'>
+                    </div>
+                    @error('date')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Odaberi sastojke koje treba nabaviti:</label>
+                        <br>
+                        @foreach($recipe->ingredients as $ingredient)
+                            <input type="checkbox" id="ingredients[]" name="ingredients[]" value="{{ $ingredient }}">
+                            <label for="ingredients[]">{{ $ingredient }}</label><br>
+                        @endforeach
+                        @error('ingredients[]')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Spremi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Favorite extends Model
+class Plan extends Model
 {
     protected $guarded = [];
+
+    protected $casts = [
+        'ingredients' => 'array'
+    ];
 
     public function recipe() {
         return $this->belongsTo(Recipe::class);
