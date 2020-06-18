@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('home');})->name('home');
 
 Route::get('/recipes', 'RecipeController@index')->name('recipes.index');
 Route::get('/recipes/create', 'RecipeController@create')->name('recipes.create')->middleware('auth');
@@ -34,14 +32,7 @@ Route::post('/plans/{recipe}', 'PlanController@store')->name('plan.store')->midd
 
 Route::any('search', 'SearchController@index')->name('search');
 
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

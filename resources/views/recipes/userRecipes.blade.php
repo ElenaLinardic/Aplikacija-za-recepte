@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="wrapper recipe-index">
-    <h1>Moji recepti</h1>
+    <h2>Moji recepti</h2>
     @foreach($recipes as $recipe)
     <div class="recipe-item">
         <img src="{{ asset('storage/' . $recipe->image) }}" alt="recipe image">
         <h4><a href="/recipes/{{ $recipe->id }}">{{ $recipe->name }}</a></h4>
     </div>
     @endforeach
-    <br>
-    <h1>Moji favoriti</h1>
+    <hr>
+    <h2>Moji favoriti</h2>
     @foreach($favRecipes as $favRecipe)
     <div class="recipe-item">
         <img src="{{ asset('storage/' . $favRecipe->recipe->image) }}" alt="recipe image">

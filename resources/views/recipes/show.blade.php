@@ -3,19 +3,7 @@
 @section('content')
 <div class="wrapper recipe-details">
     <h1>{{ $recipe->name }}</h1>
-    @foreach(range(1,5) as $i)
-        <span class="fa-stack" style="width:1em">
-            <i class="far fa-star fa-stack-1x"></i>
-
-            @if($stars >0)
-                @if($stars >0.5)
-                    <i class="fas fa-star fa-stack-1x"></i>
-                @else
-                    <i class="fas fa-star-half fa-stack-1x"></i>
-                @endif
-            @endif
-        </span>
-    @endforeach
+    <h5>Ocijena: {{ $stars }}<i class="fa fa-star" aria-hidden="true"></i></h5>
     @if($recipe->image)
     <div class="row">
         <div class="col-12"><img src="{{ asset('storage/' . $recipe->image) }}" class="img-thumbnail"></img></div>
